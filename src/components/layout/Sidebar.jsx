@@ -21,9 +21,9 @@ export default function Sidebar() {
     ];
     
     return (
-        <div className="w-64 bg-white border-r min-h-screen p-5">
+        <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
           {/* LOGO */}
-          <div className="mb-8">
+          <div className="h-16 flex items-center px-6 text-xl font-bold">
             <h1 className="text-xl font-bold text-indigo-600">
                 ContactPro
             </h1>
@@ -39,11 +39,11 @@ export default function Sidebar() {
                       key={index}
                       to={item.path}
                       className={({ isActive }) =>
-                         `flex items-center gap-3 p-3 rounded-lg transition
+                         `flex items-center gap-3 px-4 py-2 rounded-lg transition
                           ${
                             isActive 
-                              ? "bg-indigo-100 text-indigo-600 font-medium"
-                              : "text-gray-600 hover:bg-gray-100"
+                              ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300"
+                              : "text-gray-600 dark:text-grey-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                           }`
                         }
                     >

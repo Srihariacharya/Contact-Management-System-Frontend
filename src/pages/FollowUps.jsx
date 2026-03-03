@@ -1,3 +1,3 @@
 export default function Dashboard() {
-    return <div classname="p-6 text-xl">Follow-Ups</div>;
+    return <div className="p-6 text-xl">Follow-Ups</div>;
 }
