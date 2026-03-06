@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function Contacts() {
     const [search, setSearch] = useState("");
-    const contacts = [
+    const [contacts, setContacts] = useState ([ 
     {
         id: 1,
         name:"PM Modi",
@@ -41,12 +41,44 @@ export default function Contacts() {
         interaction:"3 day ago",
         score:65
     }
-  ];
+  ]);
   const filteredContacts = contacts.filter((c)=>
     c.name.toLowerCase().includes(search.toLowerCase()) ||
     c.email.toLowerCase().includes(search.toLowerCase()) ||
     c.phone.includes(search)
   );
+
+  const [showModel, setShowModel] = useState(false);
+  const [formData, setFormData] = useState({
+    name:"",
+    phone:"",
+    email:"",
+    category:"client"
+  });
+
+  const handleAddContact = () => {
+    const newContact = {
+        id: Date.now(),
+        ...formData,
+        interaction: "Today",
+        score: Math.floor(Math.random() * 40) + 60
+    }; 
+
+    setContacts([...contacts,newContact]);
+    setShowModel(false);
+
+    setFormData({
+        name:"",
+        phone:"",
+        email:"",
+        category:"client"
+    });
+  };
+
+  const handleDeleteContact = (id) => {
+    const updatedContacts = contacts.filter((contact) => contact.id !==id);
+    setContacts(updatedContacts);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px space-y-6">
@@ -60,7 +92,9 @@ export default function Contacts() {
                     Manage your relationships
                 </p>
             </div>
-            <button className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+            <button
+                onClick={() => setShowModel(true)} 
+                className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
                 <Plus size={18} />
                    Add Contact
             </button>
@@ -79,7 +113,7 @@ export default function Contacts() {
         </div>
 
         {/* Table */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
             <table className="w-full text-sm">
                 <thead className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200">
                     <tr>
@@ -94,9 +128,9 @@ export default function Contacts() {
                 </thead>
                 <tbody>
                     {filteredContacts.map((c) => (
-                        <tr key={c.id} className="border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                        <tr key={c.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800 transition">
                             <td className="p-4 flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-full bg-indigo-200 flex items-center justify-center font-semibold">
+                                <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold">
                                     {c.name.charAt(0)}
                                 </div>
                                 <span className="font-medium dark:text-white">
@@ -133,7 +167,7 @@ export default function Contacts() {
                                         </div>
                                     </div>
 
-                                    <span className="text-xs">
+                                    <span className="text-sm">
                                         {c.score}%
                                     </span>
                                 </div>
@@ -145,12 +179,74 @@ export default function Contacts() {
                               <Link to={`/contacts/edit/${c.id}`}>
                                 <Pencil size={18} className="cursor-pointer" />
                               </Link>
-                                <Trash2 size={18} className="cursor-pointer text-red-500" />
+                              <button
+                                 onClick={() => {
+                                    if(window.confirm("Delete this Contact?")) {  
+                                 handleDeleteContact(c.id); }
+                                }}
+                                 className="cursor-pointer text-red-500 hover:text-red-700">
+                                    <Trash2 size={18} />
+                              </button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            {/* Add Contacts */}
+            {showModel && (
+                <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-96">
+                        <h2 className="text-lg font-semibold mb-4 dark:text-white">
+                            Add Contact
+                        </h2>
+                        <div className="space-y-3">
+                           <input type="text"
+                                  placeholder="Name"
+                                  value={formData.name}
+                                  onChange={(e)=>setFormData({...formData,name:e.target.value})}
+                                  className="w-full border rounded-lg p-2 dark:bg-gray-700"
+                            />
+                            <input type="text"
+                                  placeholder="Phone"
+                                  value={formData.phone}
+                                  onChange={(e)=>setFormData({...formData,phone:e.target.value})}
+                                  className="w-full border rounded-lg p-2 dark:bg-gray-700"
+                            />
+                            <input type="email"
+                                  placeholder="Email"
+                                  value={formData.email}
+                                  onChange={(e)=>setFormData({...formData,email:e.target.value})}
+                                  className="w-full border rounded-lg p-2 dark:bg-gray-700"
+                            />
+
+                            <select 
+                                value={formData.category}
+                                onChange={(e)=>setFormatData({...formData,category:e.target.value})}
+                                className="w-full border rounded-lg p-2 dark:bg-gray-700"
+                            >
+                                <option>client</option>
+                                <option>lead</option>
+                                <option>vendor</option>
+                            </select>
+                        </div>
+
+                        <div className="flex justify-end gap-3 mt-5">
+                            <button onClick={() => setShowModel(false)}
+                                    className="px-4 py-2 border rounded-lg"
+                            >
+                                Cancel
+                            </button>
+
+                            <button 
+                               onClick={handleAddContact}
+                               className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     </div>
   );
