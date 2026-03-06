@@ -4,6 +4,7 @@ import Login from "./pages/auth/Login";
 import Dashboard from "./pages/Dashboard";
 import Contacts from "./pages/Contacts";
 import ContactDetail from "./pages/ContactDetail";
+import EditContact from "./pages/EditContact";
 import FollowUps from "./pages/FollowUps";
 import Tasks from "./pages/Tasks";
 import Analytics from "./pages/Analytics";
@@ -19,6 +20,7 @@ function App() {
         <Route index element ={<Dashboard />} />
         <Route path="contacts" element={<Contacts />} />
         <Route path="contacts/:id" element={<ContactDetail />} />
+        <Route path="contacts/edit/:id" element={<EditContact />} />
         <Route path="followups" element={<FollowUps />} />
         <Route path="tasks" element={<Tasks />} />
         <Route path="analytics" element={<Analytics />} />
