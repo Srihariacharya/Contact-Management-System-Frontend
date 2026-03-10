@@ -42,7 +42,7 @@ export default function FollowUps() {
                 </p>
             </div>
             <div className="grid grid-cols-3 gap-4">
-                <div className="bg-white rounded-xl border p-4 flex justify-between items-center">
+                <div className="bg-white dark:bg-gray-800 rounded-xl border p-4 flex justify-between items-center">
                     <div>
                         <p className="text-gray-500 text-sm">Total Follow-Ups</p>
                         <h2 className="text-xl font-semibold">10</h2>
@@ -50,7 +50,7 @@ export default function FollowUps() {
                     <Clock className="text-indigo-600" />
                 </div>
 
-                <div className="bg-white rounded-xl border p-4 flex justify-between items-center">
+                <div className="bg-white dark:bg-gray-800 rounded-xl border p-4 flex justify-between items-center">
                     <div>
                         <p className="text-gray-500 text-sm">Overdue</p>
                         <h2 className="text-xl font-semibold text-red-600">3</h2>
@@ -58,7 +58,7 @@ export default function FollowUps() {
                     <AlertTriangle className="text-red-500" />
                 </div>
                 
-                <div className="bg-white rounded-xl border p-4 flex justify-between items-center">
+                <div className="bg-white dark:bg-gray-800 rounded-xl border p-4 flex justify-between items-center">
                     <div>
                         <p className="text-gray-500 text-sm">Next 7 Days</p>
                         <h2 className="text-xl font-semibold text-green-600">3</h2>
@@ -66,9 +66,9 @@ export default function FollowUps() {
                     <CheckCircle className="text-green-600" />
                 </div>
             </div>
-            <div className="bg-white rounded-xl border overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-xl border overflow-hidden">
                 <table className="w-full text-sm">
-                    <thead className="bg-gray-50 text-gray-600">
+                    <thead className="bg-gray-50 text-gray-600 dark:bg-gray-800">
                         <tr>
                             <th className="p-4 text-left">Contact Name</th>
                             <th className="p-4 text-left">Category</th>
@@ -81,7 +81,7 @@ export default function FollowUps() {
                     </thead>
                     <tbody>
                         {followups.map((f)=> (
-                            <tr key={f.id} className={`border-t hover:bg-gray-50 ${
+                            <tr key={f.id} className={`border-t hover:bg-gray-50 dark:bg-gray-800 ${
                             f.status === "Completed" ? "opacity-50" : ""
                         }`} >
                                 <td className="p-4">
@@ -96,7 +96,7 @@ export default function FollowUps() {
                                     </div>
                                 </td>
                                 <td className="p-4">
-                                    <span className="bg-gray-100 px-2 py-1 rounded text-xs">
+                                    <span className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">
                                         {f.category}
                                     </span>
                                 </td>

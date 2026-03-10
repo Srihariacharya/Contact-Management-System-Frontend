@@ -138,19 +138,19 @@ return (
 
         {/* Stats */}
         <div className="grid grid-cols-4 gap-4">
-            <div className="bg-white p-4 rounded-lg border">
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
                 <p className="text-gray-500 text-sm">Total Tasks</p>
                 <p className="text-xl font-semibold">{tasks.length}</p>
             </div>
-            <div className="bg-white p-4 rounded-lg border">
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
                 <p className="text-gray-500 text-sm">Pending</p>
                 <p className="text-xl font-semibold">{pending.length}</p>
             </div>
-            <div className="bg-white p-4 rounded-lg border">
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
                 <p className="text-gray-500 text-sm">In Progress</p>
                 <p className="text-xl font-semibold text-blue-600">{progress.length}</p>
             </div>
-            <div className="bg-white p-4 rounded-lg border">
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
                 <p className="text-gray-500 text-sm">Completed</p>
                 <p className="text-xl font-semibold text-green-600">{completed.length}</p>
             </div>
@@ -160,7 +160,7 @@ return (
         <div className="grid grid-cols-3 gap-6">
 
             {/* Pending */}
-            <div className="bg-white border rounded-lg-p4">
+            <div className="bg-white dark:bg-gray-800 border rounded-lg-p4">
                 <h3 className="font-semibold mb-4">
                     Pending ({pending.length})
                 </h3>
@@ -193,7 +193,7 @@ return (
             </div>
 
             {/* In Progress */}
-            <div className="bg-white border rounded-lg p-4">
+            <div className="bg-white dark:bg-gray-800 border rounded-lg p-4">
                 <h3 className="font-semibold mb-4">
                     In Progress ({progress.length})
                 </h3>
@@ -218,7 +218,7 @@ return (
                         <div className="flex gap-2 mt-3">
                             <button 
                                 onClick={()=> backTask(task.id)}
-                                className="bg-gray-200 text-xs px-3 py-1 rounded"
+                                className="bg-gray-200 dark:bg-gray-800 text-xs px-3 py-1 rounded"
                             >
                                 Back
                             </button>
@@ -234,7 +234,7 @@ return (
             </div>
 
              {/* Completed */}
-            <div className="bg-white border rounded-lg p-4">
+            <div className="bg-white dark:bg-gray-800 border rounded-lg p-4">
                 <h3 className="font-semibold mb-4">
                     Completed ({completed.length})
                 </h3>
@@ -268,17 +268,17 @@ return (
                 <h2 className="text-lg font-semibold">Add Task</h2>
                 <input type="text"
                        placeholder="Task title"
-                       className="w-full border p-2 rounded"
+                       className="dark:bg-gray-800 w-full border p-2 rounded"
                        value={newTask.title}
                        onChange={(e)=>setNewTask({...newTask,title:e.target.value})}
                 />
                 <input type="text"
                        placeholder="Contact Name"
-                       className="w-full border p-2 rounded"
+                       className="dark:bg-gray-800 w-full border p-2 rounded"
                        value={newTask.contact}
                        onChange={(e)=>setNewTask({...newTask,contact:e.target.value})}
                 />
-                <select className="w-full border p-2 rounded"
+                <select className="dark:bg-gray-800 w-full border p-2 rounded"
                         value={newTask.priority}
                         onChange={(e)=>setNewTask({...newTask,priority:e.target.value})}
                 >
@@ -289,19 +289,19 @@ return (
                 </select>
 
                 <input type="date"
-                       className="w-full border p-2 rounded"
+                       className="dark:bg-gray-800 w-full border p-2 rounded"
                        value={newTask.date}
                        onChange={(e)=>setNewTask({...newTask,date:e.target.value})}
                 />
                 <div className="flex justify-end gap-3"> 
                   <button onClick={()=>setShowModal(false)}
-                        className="px-4 py-2 bg-gray-200 rounded"
+                        className="dark:bg-gray-800 px-4 py-2 bg-gray-200 rounded"
                   >
                     Cancel
                   </button>
 
                   <button onClick={addTask}
-                        className="px-4 py-2  bg-gray-200 rounded"
+                        className="dark:bg-gray-800 px-4 py-2  bg-gray-200 rounded"
                   >
                     Add Task
                   </button>
