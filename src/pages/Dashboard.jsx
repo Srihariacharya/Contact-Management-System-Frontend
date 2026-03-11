@@ -39,10 +39,10 @@ const interactionData = [
 
 const contactData = [
   {name: "Virat Kohli", value: 15},
-  {name: "PM Modi", value: 13},
+  {name: "Sharvan", value: 13},
   {name: "Rohit Sharma", value: 12},
   {name: "KL Rahul", value: 10},
-  {name: "Amit Shah", value: 8},
+  {name: "Vinod Shah", value: 8},
 ]
 
 const staleContacts = [

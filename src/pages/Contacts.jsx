@@ -7,7 +7,7 @@ export default function Contacts() {
     const [contacts, setContacts] = useState ([ 
     {
         id: 1,
-        name:"PM Modi",
+        name:"Shravan",
         phone: "+91 9374736443",
         email:"pmo@email.com",
         category:"client",
