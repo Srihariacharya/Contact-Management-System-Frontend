@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
 import Dashboard from "./pages/Dashboard";
 import Contacts from "./pages/Contacts";
 import ContactDetail from "./pages/ContactDetail";
@@ -15,6 +16,7 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
 
       <Route path="/" element={<DashboardLayout />} >
         <Route index element ={<Dashboard />} />
@@ -25,7 +27,7 @@ function App() {
         <Route path="tasks" element={<Tasks />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="import-export" element={<ImportExport />} />
-        <Route path="settings" element={<Settings />} />
+        <Route path="settings" element={<Settings />} />      
       </Route>
     </Routes>
   );
