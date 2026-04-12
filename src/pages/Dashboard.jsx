@@ -1,6 +1,6 @@
-import { Users, UserPlus, AlertCircle, Activity, TrendingUp, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { Users, UserPlus, AlertCircle, Activity, TrendingUp, ArrowUpRight, ArrowDownRight, Cake, MessageSquare } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, CartesianGrid } from "recharts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const stats = [
@@ -75,6 +75,25 @@ const upcomingFollowups = [
     { name: "Ramesh", date: "Mar 28, 2025", days: "In 19 days", initials: "R" },
 ];
 
+// All contacts with DOB — today is 2026-03-30
+const allContacts = [
+    { id: 1, name: "Shravan", dob: "1995-03-30", gender: "male", initials: "S" },
+    { id: 2, name: "Rahul Shetty", dob: "1990-07-15", gender: "male", initials: "RS" },
+    { id: 3, name: "Priya Sharma", dob: "1998-03-30", gender: "female", initials: "PS" },
+    { id: 4, name: "Anita Verma", dob: "1993-05-22", gender: "female", initials: "AV" },
+];
+
+function getTodayBirthdays(contacts) {
+    const today = new Date();
+    const todayMonth = today.getMonth() + 1; // 1-indexed
+    const todayDay = today.getDate();
+    return contacts.filter((c) => {
+        if (!c.dob) return false;
+        const d = new Date(c.dob);
+        return d.getMonth() + 1 === todayMonth && d.getDate() === todayDay;
+    });
+}
+
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
@@ -90,10 +109,22 @@ const CustomTooltip = ({ active, payload, label }) => {
 export default function Dashboard() {
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const user = localStorage.getItem("user");
         if (!user) navigate("/login");
     }, [navigate]);
+
+    const [wishStatus, setWishStatus] = useState({}); // { id: 'sending' | 'sent' }
+
+    const handleSendWish = (id) => {
+        setWishStatus((prev) => ({ ...prev, [id]: "sending" }));
+        setTimeout(() => {
+            setWishStatus((prev) => ({ ...prev, [id]: "sent" }));
+        }, 1500);
+    };
+
+    const todayBirthdays = getTodayBirthdays(allContacts);
 
     return (
         <div className="space-y-6">
@@ -121,6 +152,53 @@ export default function Dashboard() {
                     );
                 })}
             </div>
+
+            {/* Birthday Reminder Banner */}
+            {todayBirthdays.length > 0 && (
+                <div className="bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 border border-pink-200 dark:border-pink-800 rounded-2xl p-5">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-9 h-9 rounded-xl bg-pink-100 dark:bg-pink-900/40 flex items-center justify-center">
+                            <Cake size={18} className="text-pink-600 dark:text-pink-400" />
+                        </div>
+                        <div>
+                            <h2 className="text-base font-semibold text-gray-900 dark:text-white">🎂 Today's Birthdays</h2>
+                            <p className="text-xs text-pink-600 dark:text-pink-400">{todayBirthdays.length} contact{todayBirthdays.length > 1 ? "s have" : " has"} a birthday today!</p>
+                        </div>
+                    </div>
+                    <div className="space-y-2.5">
+                        {todayBirthdays.map((c) => (
+                            <div key={c.id} className="flex items-center justify-between bg-white/60 dark:bg-gray-800/40 rounded-xl px-4 py-3">
+                                <div className="flex items-center gap-3">
+                                    <div className={`w-9 h-9 flex items-center justify-center rounded-full text-sm font-semibold text-white flex-shrink-0 ${c.gender === "female" ? "bg-gradient-to-br from-pink-400 to-rose-500" : "bg-gradient-to-br from-indigo-400 to-purple-500"}`}>
+                                        {c.initials}
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-medium text-gray-900 dark:text-white">{c.name}</p>
+                                        <p className="text-xs text-gray-400">🎉 Birthday today!</p>
+                                    </div>
+                                </div>
+                                {wishStatus[c.id] === "sent" ? (
+                                    <span className="text-xs px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 font-medium">
+                                        ✅ SMS Sent!
+                                    </span>
+                                ) : wishStatus[c.id] === "sending" ? (
+                                    <span className="text-xs px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 font-medium animate-pulse">
+                                        Sending SMS…
+                                    </span>
+                                ) : (
+                                    <button
+                                        onClick={() => handleSendWish(c.id)}
+                                        className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 font-medium hover:bg-pink-200 dark:hover:bg-pink-900/50 transition-all"
+                                    >
+                                        <MessageSquare size={12} />
+                                        Send SMS Wish
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Charts */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">

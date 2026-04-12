@@ -7,7 +7,8 @@ import {
     BarChart3,
     Upload,
     Settings,
-    Zap
+    Zap,
+
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -17,6 +18,7 @@ export default function Sidebar() {
         { name: "Follow-Ups", path: "/followups", icon: Bell },
         { name: "Tasks", path: "/tasks", icon: CheckSquare },
         { name: "Analytics", path: "/analytics", icon: BarChart3 },
+
         { name: "Import/Export", path: "/import-export", icon: Upload },
         { name: "Settings", path: "/settings", icon: Settings },
     ];

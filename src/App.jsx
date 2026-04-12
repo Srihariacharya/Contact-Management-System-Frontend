@@ -12,6 +12,7 @@ import Analytics from "./pages/Analytics";
 import ImportExport from "./pages/ImportExport";
 import Settings from "./pages/Settings";
 
+
 function App() {
   return (
     <Routes>
@@ -27,7 +28,8 @@ function App() {
         <Route path="tasks" element={<Tasks />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="import-export" element={<ImportExport />} />
-        <Route path="settings" element={<Settings />} />      
+        <Route path="settings" element={<Settings />} />
+
       </Route>
     </Routes>
   );
